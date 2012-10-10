@@ -32,6 +32,7 @@ GEM
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.1.0.0)
+    bootstrap_flash_messages (0.0.6)
     builder (3.0.3)
     capybara (1.1.2)
       mime-types (>= 1.16)
@@ -148,6 +149,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt-ruby (~> 3.0.0)
   bootstrap-sass
+  bootstrap_flash_messages
   capybara
   coffee-rails (~> 3.2.1)
   factory_girl_rails

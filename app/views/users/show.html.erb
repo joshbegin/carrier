@@ -1,0 +1,20 @@
+<% provide(:title, "User details") %> 
+<p id="notice"><%= notice %></p>
+
+<div class="row-fluid">
+  <div class="span2">
+    <%= gravatar_for(@user, size: '200') %>
+  </div>
+
+  <div class="span9">
+    <h3><%= @user.full_name %></h3>
+    <strong>Email:</strong>
+    <%= @user.email %><br/><br/>
+    <em><%= "User for #{time_ago_in_words(@user.created_at)}" %></em>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <%= link_to 'Edit', edit_user_path(@user) %> |
+  <%= link_to 'Back', users_path %>
+</div>

@@ -22,6 +22,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'bootstrap_flash_messages'
 
 group :development, :test do
   gem 'rspec-rails'

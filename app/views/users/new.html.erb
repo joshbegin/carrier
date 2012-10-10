@@ -1,0 +1,12 @@
+<% provide(:title, "New user") %> 
+<h3>New user</h3>
+
+<div class="row-fluid">
+  <div class="span6">
+  	<%= form_for(@user, :html => { :class => "form-horizontal"} ) do |f| %>
+      <%= render 'form', f: f %>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to 'Back', users_path %>

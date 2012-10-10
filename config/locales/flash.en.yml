@@ -1,0 +1,46 @@
+en:
+  flash_messages:
+    #
+    # These are the translations for the different headings.
+    #
+    users:
+      create:
+        success: "User for %{email} has been created!"
+        info: "Info!"
+        warning: "Warning!"
+        error: "Error!"
+
+      update:
+        success: "User for %{email} has been updated!"
+        info: "Info!"
+        warning: "Warning!"
+        error: "Error!"
+
+      destroy:
+        error: "User has been destroyed"
+
+    #
+    # Add flash messages for controller actions:
+    # products:
+    #   create:
+    #     success: "This is a notification"
+    #     error: "Something went wrong"
+    #
+    # Inside controller:
+    # def create
+    #   flash!(:success, :error)
+    #   redirect_to(:root)
+    # end
+    #
+    # OR
+    # 
+    # def create
+    #   redirect_to(:root, :flash => [:success, :error])
+    # end
+    #
+    # OR
+    #
+    # def create
+    #   flash_now!(:success, :error)
+    #   render("new")
+    # end
