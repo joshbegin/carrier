@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   before(:each) do  
-    @user = FactoryGirl.create(:user)
+    @user = FactoryGirl.create(:active)
   end
 
   subject { @user }
@@ -15,6 +15,8 @@ describe User do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:full_name) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:remember_token) }
+  it { should respond_to(:active) }
 
   it { should be_valid }
 
@@ -83,5 +85,9 @@ describe User do
       it { should_not == user_for_invalid_password }
       specify { user_for_invalid_password.should be_false }
     end
+  end
+
+  describe "remember token" do
+    its(:remember_token) { should_not be_blank }
   end
 end

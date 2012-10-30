@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  before_filter :signed_in?, only: [:index, :edit, :update, :destroy]
+  before_filter :correct_user, only: [:edit, :update]
+  before_filter :admin_user, only: [:index, :destroy]
+  
   # GET /users
   # GET /users.json
   def index
@@ -24,17 +28,24 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.json
   def new
-    @user = User.new
+    unless current_user.try(:admin?) || current_user.nil?
+      redirect_to root_path
+    else
+      @user = User.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @user }
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @user }
+      end
     end
   end
 
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    unless current_user.admin? || current_user == @user
+      redirect_to current_user
+    end
   end
 
   # POST /users
@@ -44,9 +55,15 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, 
-                      flash: :success, 
-                      locals: { email: @user.email } }
+        format.html { 
+                      if current_user.try(:admin?)
+                        redirect_to users_path, 
+                          flash: :success, 
+                          locals: { email: @user.email } 
+                      else
+                        redirect_to confirmation_path
+                      end
+                    }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -84,4 +101,12 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
+    end
+
 end

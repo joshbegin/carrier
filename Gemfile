@@ -22,12 +22,15 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'bootstrap_flash_messages'
+gem "bootstrap_flash_messages"
+# gem 'client_side_validations'
+# gem 'turbolinks'
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem "launchy", "~> 2.1.2"
 end
 
 # To use ActiveModel has_secure_password

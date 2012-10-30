@@ -19,6 +19,11 @@ en:
       destroy:
         error: "User has been destroyed"
 
+    sessions:
+      create:
+        success: "Successfully signed in"
+        error: "Invalid username/password"
+
     #
     # Add flash messages for controller actions:
     # products:
