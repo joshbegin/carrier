@@ -41,9 +41,10 @@ describe "Authentication" do
         fill_in "Confirm Password",                 with: "Password"
         # save_and_open_page
         click_button("Create User")
+        User.find_by_email("user2@email.com").toggle!(:active)
         visit signin_path
-        fill_in "Email", with: "user2@email.com"
-        fill_in "Password", with: "Password"
+        fill_in "Email",                            with: "user2@email.com"
+        fill_in "Password",                         with: "Password"
         click_button("Sign in")
         # save_and_open_page
       end
@@ -55,6 +56,28 @@ describe "Authentication" do
       describe "followed by signout" do
         before { click_link "Sign out" }
         it { should have_link('Sign in') }
+      end
+    end
+
+    describe "as inactive user" do
+      # let(:user) { FactoryGirl.create(:user) }
+      before do 
+        visit signup_path
+        fill_in "First name",                       with: "Second"
+        fill_in "Last name",                        with: "User"
+        fill_in "Email",                            with: "user2@email.com"
+        fill_in "Password",                         with: "Password"
+        fill_in "Confirm Password",                 with: "Password"
+        # save_and_open_page
+        click_button("Create User")
+        visit signin_path
+        fill_in "Email",                            with: "user2@email.com"
+        fill_in "Password",                         with: "Password"
+      end
+
+      it "should not be possible" do
+        click_button("Sign in")
+        current_path.should eq(sessions_path)
       end
     end
   end

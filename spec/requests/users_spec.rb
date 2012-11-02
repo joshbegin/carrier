@@ -65,7 +65,9 @@ describe "Users" do
         fill_in "Confirm Password",                 with: "Password"
         # save_and_open_page
         click_button("Create User")
-        # User.find_by_email('user2@email.com').toggle!(:active)
+        user = User.find_by_email('user2@email.com')
+        user.toggle!(:admin)
+        user.toggle!(:active)
         visit signin_path
         fill_in "Email", with: "user2@email.com"
         fill_in "Password", with: "Password"
@@ -75,9 +77,9 @@ describe "Users" do
       
       describe "with valid information" do
         before do
-          fill_in "First name",                       with: "Second"
+          fill_in "First name",                       with: "Third"
           fill_in "Last name",                        with: "User"
-          fill_in "Email",                            with: "user2@email.com"
+          fill_in "Email",                            with: "user3@email.com"
           fill_in "Password",                         with: "Password"
           fill_in "Confirm Password",                 with: "Password"
         end
@@ -86,11 +88,10 @@ describe "Users" do
           expect { click_button "Create User" }.to change(User, :count).by(1)
         end
 
-        it "should create the user as active" do
-          click_button "Create User"
-          @user = User.find_by_email('user2@email.com')
-          @user.should be_active
-        end
+        # it "should be able to activate user" do
+        #   
+        #   @user.should be_active
+        # end
 
         describe "after saving the user" do
           before { click_button "Create User" }
@@ -114,7 +115,7 @@ describe "Users" do
         fill_in "Confirm Password",                 with: "Password"
         # save_and_open_page
         click_button("Create User")
-        # User.find_by_email('user2@email.com').toggle!(:active)
+        User.find_by_email('user2@email.com').toggle!(:active)
         visit signin_path
         fill_in "Email", with: "user2@email.com"
         fill_in "Password", with: "Password"

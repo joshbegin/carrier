@@ -22,7 +22,7 @@ en:
     sessions:
       create:
         success: "Successfully signed in"
-        error: "Invalid username/password"
+        error: "Account is not active"
 
     #
     # Add flash messages for controller actions:
