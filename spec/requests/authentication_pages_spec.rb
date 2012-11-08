@@ -80,5 +80,54 @@ describe "Authentication" do
         current_path.should eq(sessions_path)
       end
     end
+
+    describe "as admin user" do
+      before do
+        visit signup_path
+        fill_in "First name",                       with: "Second"
+        fill_in "Last name",                        with: "User"
+        fill_in "Email",                            with: "user2@email.com"
+        fill_in "Password",                         with: "Password"
+        fill_in "Confirm Password",                 with: "Password"
+        click_button("Create User")
+        user = User.find_by_email('user2@email.com')
+        user.toggle!(:admin)
+        user.toggle!(:active)
+        visit signin_path
+        fill_in "Email", with: "user2@email.com"
+        fill_in "Password", with: "Password"
+        click_button("Sign in")
+      end
+      
+      it { should have_link('Users', href: users_path) }
+      
+      it "should be able to access Users page" do
+        visit users_path
+        page.should have_selector('h3', text: 'Users')
+      end
+    end
+
+    describe "as non-admin user" do
+      before do
+        visit signup_path
+        fill_in "First name",                       with: "Second"
+        fill_in "Last name",                        with: "User"
+        fill_in "Email",                            with: "user2@email.com"
+        fill_in "Password",                         with: "Password"
+        fill_in "Confirm Password",                 with: "Password"
+        click_button("Create User")
+        user = User.find_by_email('user2@email.com')
+        user.toggle!(:active)
+        visit signin_path
+        fill_in "Email", with: "user2@email.com"
+        fill_in "Password", with: "Password"
+        click_button("Sign in")
+      end
+      
+      it "should not be able to access Users page" do
+        visit users_path
+        page.should have_selector('h1', text: 'Welcome!')
+      end
+    end
   end
 end

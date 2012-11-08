@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  default_scope order( "first_name ASC" )
+
   private
 
     def create_remember_token

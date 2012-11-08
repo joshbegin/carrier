@@ -10,11 +10,18 @@
     <h3><%= @user.full_name %></h3>
     <strong>Email:</strong>
     <%= @user.email %><br/><br/>
-    <em><%= "User for #{time_ago_in_words(@user.created_at)}" %></em>
+    <em><%= "User for #{time_ago_in_words(@user.created_at)}" %></em><br/><br/>
+    <div class="span3">
+      <%= link_to active_link_text(@user), toggle_active_user_path(@user), 
+          id: "active_link_#{@user.id}", class: "btn" %>  
+    </div>
+    <div class="span3">
+      <%= link_to admin_link_text(@user), toggle_admin_user_path(@user), 
+          id: "admin_link_#{@user.id}", class: "btn" %>  
+    </div>
   </div>
 </div>
 
 <div class="row-fluid">
-  <%= link_to 'Edit', edit_user_path(@user) %> |
-  <%= link_to 'Back', users_path %>
+  <%= link_to 'Edit', edit_user_path(@user) %>
 </div>

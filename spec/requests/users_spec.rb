@@ -54,7 +54,7 @@ describe "Users" do
 
     describe "while logged in as admin" do
 
-      let(:admin_user) { FactoryGirl.create(:admin) }
+      # let(:admin_user) { FactoryGirl.create(:admin) }
       before do
         # sign_in(admin_user)
         visit signup_path
@@ -88,10 +88,35 @@ describe "Users" do
           expect { click_button "Create User" }.to change(User, :count).by(1)
         end
 
-        # it "should be able to activate user" do
-        #   
-        #   @user.should be_active
-        # end
+        it "should be able to activate/deactivate user" do
+          click_button "Create User"
+          @inactive_user = User.find_by_email('user3@email.com')
+          visit user_path(@inactive_user)
+          # save_and_open_page
+          click_link "Activate"
+          # save_and_open_page
+          @inactive_user = User.find_by_email('user3@email.com')
+          @inactive_user.should be_active
+          visit user_path(@inactive_user)
+          click_link "Deactivate"
+          @inactive_user = User.find_by_email('user3@email.com')
+          @inactive_user.should_not be_active
+        end
+        
+        it "should be able to add/remove admin rights user" do
+          click_button "Create User"
+          @nonadmin_user = User.find_by_email('user3@email.com')
+          visit user_path(@nonadmin_user)
+          # save_and_open_page
+          click_link "Make Admin"
+          # save_and_open_page
+          @nonadmin_user = User.find_by_email('user3@email.com')
+          @nonadmin_user.should be_admin
+          visit user_path(@nonadmin_user)
+          click_link "Remove Admin"
+          @nonadmin_user = User.find_by_email('user3@email.com')
+          @nonadmin_user.should_not be_admin
+        end
 
         describe "after saving the user" do
           before { click_button "Create User" }

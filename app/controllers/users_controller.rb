@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :signed_in?, only: [:index, :edit, :update, :destroy]
-  before_filter :correct_user, only: [:edit, :update]
+  # before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: [:index, :destroy]
   
   # GET /users
@@ -42,9 +42,10 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
-    unless current_user.admin? || current_user == @user
+    unless current_user.try(:admin?) || !correct_user
       redirect_to current_user
+    else
+      @user = User.find(params[:id])
     end
   end
 
@@ -100,6 +101,18 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, flash: :error }
       format.json { head :no_content }
     end
+  end
+
+  def toggle_active
+    @user = User.find(params[:id])
+    @user.toggle!(:active)
+    redirect_to users_path
+  end
+
+  def toggle_admin
+    @a = User.find(params[:id])
+    @a.toggle!(:admin)
+    redirect_to users_path
   end
 
   private

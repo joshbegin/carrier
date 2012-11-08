@@ -6,7 +6,7 @@
     <tr>
       <th>Name</th>
       <th>Email</th>
-      <th>Active?</th>
+      <th>Status</th>
       <th>Admin?</th>
       <th></th>
       <th></th>
@@ -18,8 +18,12 @@
       <tr>
         <td><%= user.full_name %></td>
         <td><%= user.email %></td>
-        <td><%= user.active %></td>
-        <td><%= user.admin %></td>
+        <td><%= active_text(user) %> (<%= link_to active_link_text(user),   
+            toggle_active_user_path(user),   
+            id: "active_link_#{user.id}" %>)</td>
+        <td><%= admin_text(user) %> (<%= link_to admin_link_text(user),   
+            toggle_admin_user_path(user),   
+            id: "admin_link_#{user.id}" %>)</td>
         <td><%= link_to 'Show', user %></td>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>

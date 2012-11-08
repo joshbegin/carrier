@@ -3,7 +3,10 @@ Carrier::Application.routes.draw do
 
   get "pages/confirmation"
 
-  resources :users
+  resources :users do
+    get 'toggle_active', on: :member
+    get 'toggle_admin', on: :member
+  end
   resources :sessions, only: [:new, :create, :destroy]
 
   match '/signup',  to: 'users#new'
