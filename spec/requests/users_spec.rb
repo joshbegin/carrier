@@ -155,7 +155,7 @@ describe "Users" do
   end
 
   describe "Users page" do
-    let(:user) { FactoryGirl.create(:admin) }
+    # let(:user) { FactoryGirl.create(:admin) }
       before do
         visit signup_path
         fill_in "First name",                       with: "Second"
@@ -184,7 +184,6 @@ end
 
 # Only admins can delete users
 # Admins can't delete themselves
-# new users should not be logged in automatically
 # need admin page to activate users
 # need email to admin notifying of new user
 # need email to user once they are approved

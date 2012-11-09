@@ -7,7 +7,6 @@ gem 'rails', '3.2.8'
 
 gem 'pg'
 
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -28,9 +27,14 @@ gem "bootstrap_flash_messages"
 
 group :development, :test do
   gem 'rspec-rails'
+  gem "launchy", "~> 2.1.2"
+end
+
+group :test do
+  gem "guard-rspec"
   gem 'factory_girl_rails'
   gem 'capybara'
-  gem "launchy", "~> 2.1.2"
+  gem "rb-fsevent", "~> 0.9.2"
 end
 
 # To use ActiveModel has_secure_password

@@ -16,7 +16,7 @@ def sign_in user
   click_link "Sign in"
   # save_and_open_page
   # Sign in when not using Capybara as well.
-  # cookies[:remember_token] = user.remember_token
+  cookies[:remember_token] = user.remember_token
 end
 
 RSpec::Matchers.define :have_error_message do |message|

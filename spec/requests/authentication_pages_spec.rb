@@ -31,7 +31,7 @@ describe "Authentication" do
     end
 
     describe "with valid information" do
-      let(:user) { FactoryGirl.create(:active) }
+      # let(:user) { FactoryGirl.create(:active) }
       before do 
       	visit signup_path
       	fill_in "First name",                       with: "Second"
@@ -128,6 +128,12 @@ describe "Authentication" do
         visit users_path
         page.should have_selector('h1', text: 'Welcome!')
       end
+      
+      it "should not see Activate or Make Admin links on User page"
     end
+    # write test for redirect_back_or functionality
+    # figure out how to write tests for mailer
+    # check auth and possibly refactor
+    # No email when creating user as admin. Also, user should be active.
   end
 end

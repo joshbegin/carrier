@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :signed_in?, only: [:index, :edit, :update, :destroy]
+  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :show]
   # before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: [:index, :destroy]
   
@@ -17,11 +17,13 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = User.find(params[:id])
+    if correct_user_or_admin
+      @user = User.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @user }
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @user }
+      end
     end
   end
 
@@ -42,10 +44,10 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    unless current_user.try(:admin?) || !correct_user
-      redirect_to current_user
-    else
+    if correct_user_or_admin
       @user = User.find(params[:id])
+    else
+      redirect_to current_user
     end
   end
 
@@ -56,6 +58,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        UserMailer.admin_confirmation(@user).deliver
         format.html { 
                       if current_user.try(:admin?)
                         redirect_to users_path, 
@@ -106,6 +109,7 @@ class UsersController < ApplicationController
   def toggle_active
     @user = User.find(params[:id])
     @user.toggle!(:active)
+    UserMailer.confirm_active(@user).deliver if @user.active?
     redirect_to users_path
   end
 
@@ -117,9 +121,14 @@ class UsersController < ApplicationController
 
   private
 
-    def correct_user
+    def correct_user_or_admin
       @user = User.find(params[:id])
-      redirect_to(root_path) unless current_user?(@user)
+      if current_user?(@user) || current_user.try(:admin)
+        return true
+      else
+        redirect_to(root_path)
+        return false
+      end
     end
 
 end

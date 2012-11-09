@@ -1,20 +1,17 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :user do
-    sequence(:email) { |n| "MyString_#{n}@abc.com" }
-    first_name "MyString"
-    sequence(:last_name) { |n| "LastName_#{n}" }
-    password "Password"
-    password_confirmation "Password"
+  factory :user do |f|
+    f.sequence(:email) { |n| "MyString_#{n}@abc.com" }
+    f.first_name "MyString"
+    f.sequence(:last_name) { |n| "LastName_#{n}" }
+    f.password "Password"
+    f.password_confirmation "Password"
 
     factory :admin do
-      active true
-      admin true
     end
-
+                                     
     factory :active do
-      active true
     end
   end
 end
