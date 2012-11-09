@@ -36,6 +36,12 @@ describe "Users" do
             page.should have_selector('title', text: "Signup Confirmation")
           end
         end
+        
+        it "should send the admin an email" do
+          click_button "Create User"
+          user = User.find_by_email("nospam@email.com")
+          last_email.body.raw_source.should include user.full_name
+        end
       end
       
       describe "with invalid information" do
@@ -54,20 +60,8 @@ describe "Users" do
 
     describe "while logged in as admin" do
 
-      # let(:admin_user) { FactoryGirl.create(:admin) }
       before do
-        # sign_in(admin_user)
-        visit signup_path
-        fill_in "First name",                       with: "Second"
-        fill_in "Last name",                        with: "User"
-        fill_in "Email",                            with: "user2@email.com"
-        fill_in "Password",                         with: "Password"
-        fill_in "Confirm Password",                 with: "Password"
-        # save_and_open_page
-        click_button("Create User")
-        user = User.find_by_email('user2@email.com')
-        user.toggle!(:admin)
-        user.toggle!(:active)
+        sign_up_admin
         visit signin_path
         fill_in "Email", with: "user2@email.com"
         fill_in "Password", with: "Password"
@@ -117,6 +111,16 @@ describe "Users" do
           @nonadmin_user = User.find_by_email('user3@email.com')
           @nonadmin_user.should_not be_admin
         end
+        
+        it "should send the user an email when activated" do
+          click_button "Create User"
+          @inactive_user = User.find_by_email('user3@email.com')
+          visit user_path(@inactive_user)
+          click_link "Activate"
+          last_email.body.raw_source.should include @inactive_user.first_name
+          last_email.subject.should include "Welcome to the Carrier Site"
+          last_email.to.should include @inactive_user.email
+        end
 
         describe "after saving the user" do
           before { click_button "Create User" }
@@ -132,15 +136,7 @@ describe "Users" do
     describe "while logged in as non-admin" do
       # let(:user) { FactoryGirl.create(:user) }
       before do
-        visit signup_path
-        fill_in "First name",                       with: "Second"
-        fill_in "Last name",                        with: "User"
-        fill_in "Email",                            with: "user2@email.com"
-        fill_in "Password",                         with: "Password"
-        fill_in "Confirm Password",                 with: "Password"
-        # save_and_open_page
-        click_button("Create User")
-        User.find_by_email('user2@email.com').toggle!(:active)
+        sign_up_active
         visit signin_path
         fill_in "Email", with: "user2@email.com"
         fill_in "Password", with: "Password"
@@ -157,16 +153,7 @@ describe "Users" do
   describe "Users page" do
     # let(:user) { FactoryGirl.create(:admin) }
       before do
-        visit signup_path
-        fill_in "First name",                       with: "Second"
-        fill_in "Last name",                        with: "User"
-        fill_in "Email",                            with: "user2@email.com"
-        fill_in "Password",                         with: "Password"
-        fill_in "Confirm Password",                 with: "Password"
-        # save_and_open_page
-        click_button("Create User")
-        User.find_by_email('user2@email.com').toggle!(:admin)
-        User.find_by_email('user2@email.com').toggle!(:active)
+        sign_up_admin
         visit signin_path
         fill_in "Email", with: "user2@email.com"
         fill_in "Password", with: "Password"
@@ -185,6 +172,5 @@ end
 # Only admins can delete users
 # Admins can't delete themselves
 # need admin page to activate users
-# need email to admin notifying of new user
-# need email to user once they are approved
+
 

@@ -33,15 +33,7 @@ describe "Authentication" do
     describe "with valid information" do
       # let(:user) { FactoryGirl.create(:active) }
       before do 
-      	visit signup_path
-      	fill_in "First name",                       with: "Second"
-        fill_in "Last name",                        with: "User"
-        fill_in "Email",                            with: "user2@email.com"
-        fill_in "Password",                         with: "Password"
-        fill_in "Confirm Password",                 with: "Password"
-        # save_and_open_page
-        click_button("Create User")
-        User.find_by_email("user2@email.com").toggle!(:active)
+      	sign_up_active
         visit signin_path
         fill_in "Email",                            with: "user2@email.com"
         fill_in "Password",                         with: "Password"
@@ -62,14 +54,7 @@ describe "Authentication" do
     describe "as inactive user" do
       # let(:user) { FactoryGirl.create(:user) }
       before do 
-        visit signup_path
-        fill_in "First name",                       with: "Second"
-        fill_in "Last name",                        with: "User"
-        fill_in "Email",                            with: "user2@email.com"
-        fill_in "Password",                         with: "Password"
-        fill_in "Confirm Password",                 with: "Password"
-        # save_and_open_page
-        click_button("Create User")
+        sign_up_inactive
         visit signin_path
         fill_in "Email",                            with: "user2@email.com"
         fill_in "Password",                         with: "Password"
@@ -83,16 +68,7 @@ describe "Authentication" do
 
     describe "as admin user" do
       before do
-        visit signup_path
-        fill_in "First name",                       with: "Second"
-        fill_in "Last name",                        with: "User"
-        fill_in "Email",                            with: "user2@email.com"
-        fill_in "Password",                         with: "Password"
-        fill_in "Confirm Password",                 with: "Password"
-        click_button("Create User")
-        user = User.find_by_email('user2@email.com')
-        user.toggle!(:admin)
-        user.toggle!(:active)
+        sign_up_admin
         visit signin_path
         fill_in "Email", with: "user2@email.com"
         fill_in "Password", with: "Password"
@@ -109,15 +85,7 @@ describe "Authentication" do
 
     describe "as non-admin user" do
       before do
-        visit signup_path
-        fill_in "First name",                       with: "Second"
-        fill_in "Last name",                        with: "User"
-        fill_in "Email",                            with: "user2@email.com"
-        fill_in "Password",                         with: "Password"
-        fill_in "Confirm Password",                 with: "Password"
-        click_button("Create User")
-        user = User.find_by_email('user2@email.com')
-        user.toggle!(:active)
+        sign_up_active
         visit signin_path
         fill_in "Email", with: "user2@email.com"
         fill_in "Password", with: "Password"
@@ -131,8 +99,8 @@ describe "Authentication" do
       
       it "should not see Activate or Make Admin links on User page"
     end
+    
     # write test for redirect_back_or functionality
-    # figure out how to write tests for mailer
     # check auth and possibly refactor
     # No email when creating user as admin. Also, user should be active.
   end

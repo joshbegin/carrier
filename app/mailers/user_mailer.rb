@@ -22,6 +22,6 @@ class UserMailer < ActionMailer::Base
     @user = user
     @url = "http://localhost:3000/users/#{@user.id}"
     
-    mail to: "joshbegin@gmail.com", subject: "New user for Carrier Site"
+    mail to: "joshbegin@gmail.com", subject: "New user for Carrier Site - #{user.full_name}"
   end
 end
