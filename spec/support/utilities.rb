@@ -28,9 +28,9 @@ def sign_up_admin
   fill_in "Confirm Password",                 with: "Password"
   # save_and_open_page
   click_button("Create User")
-  user = User.find_by_email("user2@email.com")
-  user.toggle!(:active)
-  user.toggle!(:admin)
+  @user = User.find_by_email("user2@email.com")
+  @user.toggle!(:active)
+  @user.toggle!(:admin)
 end
 
 def sign_up_active
@@ -42,8 +42,8 @@ def sign_up_active
   fill_in "Confirm Password",                 with: "Password"
   # save_and_open_page
   click_button("Create User")
-  user = User.find_by_email("user2@email.com")
-  user.toggle!(:active)
+  @user = User.find_by_email("user2@email.com")
+  @user.toggle!(:active)
 end
 
 def sign_up_inactive

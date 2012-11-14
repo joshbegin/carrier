@@ -87,14 +87,14 @@ describe "Users" do
           @inactive_user = User.find_by_email('user3@email.com')
           visit user_path(@inactive_user)
           # save_and_open_page
-          click_link "Activate"
+          click_link "Deactivate"
           # save_and_open_page
           @inactive_user = User.find_by_email('user3@email.com')
-          @inactive_user.should be_active
-          visit user_path(@inactive_user)
-          click_link "Deactivate"
-          @inactive_user = User.find_by_email('user3@email.com')
           @inactive_user.should_not be_active
+          visit user_path(@inactive_user)
+          click_link "Activate"
+          @inactive_user = User.find_by_email('user3@email.com')
+          @inactive_user.should be_active
         end
         
         it "should be able to add/remove admin rights user" do
@@ -115,11 +115,21 @@ describe "Users" do
         it "should send the user an email when activated" do
           click_button "Create User"
           @inactive_user = User.find_by_email('user3@email.com')
-          visit user_path(@inactive_user)
-          click_link "Activate"
           last_email.body.raw_source.should include @inactive_user.first_name
           last_email.subject.should include "Welcome to the Carrier Site"
           last_email.to.should include @inactive_user.email
+        end
+        
+        it "should not send admin an email notifying them of new user" do
+          click_button "Create User"
+          @inactive_user = User.find_by_email('user3@email.com')
+          last_email.body.raw_source.should_not include @inactive_user.full_name
+        end          
+        
+        it "should automatically create the user as active" do
+          click_button "Create User"
+          @new_user = User.find_by_email('user3@email.com')
+          @new_user.should be_active
         end
 
         describe "after saving the user" do
@@ -130,6 +140,10 @@ describe "Users" do
             current_path.should eq(users_path)
           end
         end
+        
+        it "should be able to delete user"
+                
+        it "should not be able to delete self"
       end
     end
 
@@ -168,9 +182,3 @@ describe "Users" do
     it { should have_selector('th',     text: 'Email') }
   end
 end
-
-# Only admins can delete users
-# Admins can't delete themselves
-# need admin page to activate users
-
-

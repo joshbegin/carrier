@@ -81,6 +81,12 @@ describe "Authentication" do
         visit users_path
         page.should have_selector('h3', text: 'Users')
       end
+      
+      it "should not have Deactivate or Remove Admin links for themselves" do
+        visit user_path(@user)
+        page.should_not have_link('Deactivate', href: toggle_active_user_path(@user))
+        page.should_not have_link('Remove Admin', href: toggle_admin_user_path(@user))
+      end
     end
 
     describe "as non-admin user" do
@@ -97,11 +103,11 @@ describe "Authentication" do
         page.should have_selector('h1', text: 'Welcome!')
       end
       
-      it "should not see Activate or Make Admin links on User page"
+      it "should not see Activate or Make Admin links on User page" do
+        visit user_path(@user)
+        page.should_not have_link('Deactivate', href: toggle_active_user_path(@user))
+        page.should_not have_link('Make Admin', href: toggle_admin_user_path(@user))
+      end
     end
-    
-    # write test for redirect_back_or functionality
-    # check auth and possibly refactor
-    # No email when creating user as admin. Also, user should be active.
   end
 end

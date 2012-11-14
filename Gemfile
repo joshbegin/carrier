@@ -28,6 +28,7 @@ gem "bootstrap_flash_messages"
 group :development, :test do
   gem 'rspec-rails'
   gem "launchy", "~> 2.1.2"
+  gem "growl"
 end
 
 group :test do

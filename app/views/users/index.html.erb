@@ -18,15 +18,25 @@
       <tr>
         <td><%= user.full_name %></td>
         <td><%= user.email %></td>
-        <td><%= active_text(user) %> (<%= link_to active_link_text(user),   
+        <td><%= active_text(user) %>
+					<% if !current_user?(user) %>
+					 (<%= link_to active_link_text(user),   
             toggle_active_user_path(user),   
-            id: "active_link_#{user.id}" %>)</td>
-        <td><%= admin_text(user) %> (<%= link_to admin_link_text(user),   
+            id: "active_link_#{user.id}" %>)
+					<% end %>
+				</td>
+        <td><%= admin_text(user) %>
+					<% if !current_user?(user) %>
+					 (<%= link_to admin_link_text(user),   
             toggle_admin_user_path(user),   
-            id: "admin_link_#{user.id}" %>)</td>
+            id: "admin_link_#{user.id}" %>)
+					<% end %>
+				</td>
         <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) if current_user?(user) %></td>
+        <td><% if !current_user?(user) %>
+  				<%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %>
+				<% end %></td>
       </tr>
     <% end %>
   </tbody>

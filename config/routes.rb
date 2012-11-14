@@ -1,4 +1,6 @@
 Carrier::Application.routes.draw do
+  get "password_resets/new"
+
   get "pages/home"
 
   get "pages/confirmation"
@@ -8,6 +10,7 @@ Carrier::Application.routes.draw do
     get 'toggle_admin', on: :member
   end
   resources :sessions, only: [:new, :create, :destroy]
+  resources :password_resets
 
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'

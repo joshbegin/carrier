@@ -44,9 +44,8 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    if correct_user_or_admin
-      @user = User.find(params[:id])
-    else
+    @user = User.find(params[:id])
+    unless current_user?(@user)
       redirect_to current_user
     end
   end
@@ -58,9 +57,11 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        UserMailer.admin_confirmation(@user).deliver
+        @user.send_admin_confirmation_email unless current_user.try(:admin)
         format.html { 
                       if current_user.try(:admin?)
+                        @user.toggle!(:active)
+                        UserMailer.confirm_active(@user).deliver
                         redirect_to users_path, 
                           flash: :success, 
                           locals: { email: @user.email } 
@@ -108,14 +109,18 @@ class UsersController < ApplicationController
 
   def toggle_active
     @user = User.find(params[:id])
-    @user.toggle!(:active)
-    UserMailer.confirm_active(@user).deliver if @user.active?
+    unless current_user?(@user)
+      @user.toggle!(:active)
+      @user.send_active_confirmation_email if @user.active?
+    end
     redirect_to users_path
   end
 
   def toggle_admin
     @a = User.find(params[:id])
-    @a.toggle!(:admin)
+    unless current_user?(@a)
+      @a.toggle!(:admin)
+    end
     redirect_to users_path
   end
 
@@ -124,6 +129,16 @@ class UsersController < ApplicationController
     def correct_user_or_admin
       @user = User.find(params[:id])
       if current_user?(@user) || current_user.try(:admin)
+        return true
+      else
+        redirect_to(root_path)
+        return false
+      end
+    end
+    
+    def correct_user
+      @user = User.find(params[:id])
+      if current_user?(@user)
         return true
       else
         redirect_to(root_path)
