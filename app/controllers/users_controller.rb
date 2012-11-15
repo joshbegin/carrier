@@ -62,9 +62,8 @@ class UsersController < ApplicationController
                       if current_user.try(:admin?)
                         @user.toggle!(:active)
                         UserMailer.confirm_active(@user).deliver
-                        redirect_to users_path, 
-                          flash: :success, 
-                          locals: { email: @user.email } 
+                        redirect_to users_path
+                        flash[:success] = "User created successfully"
                       else
                         redirect_to confirmation_path
                       end
@@ -84,9 +83,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, 
-                      flash: :success,
-                      locals: { email: @user.email } }
+        format.html { redirect_to @user
+          flash[:success] = "User updated successfully" }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -102,7 +100,8 @@ class UsersController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_url, flash: :error }
+      format.html { redirect_to users_url
+        flash[:failure] = "User destroyed" }
       format.json { head :no_content }
     end
   end
@@ -129,16 +128,6 @@ class UsersController < ApplicationController
     def correct_user_or_admin
       @user = User.find(params[:id])
       if current_user?(@user) || current_user.try(:admin)
-        return true
-      else
-        redirect_to(root_path)
-        return false
-      end
-    end
-    
-    def correct_user
-      @user = User.find(params[:id])
-      if current_user?(@user)
         return true
       else
         redirect_to(root_path)

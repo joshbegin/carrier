@@ -28,7 +28,8 @@ module SessionsHelper
   def signed_in_user
     unless signed_in?
       store_location
-      redirect_to signin_path, flash: :error
+      redirect_to signin_path
+      flash[:warning] = "Please log in first"
     end
   end
 

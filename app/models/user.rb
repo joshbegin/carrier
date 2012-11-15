@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :first_name, :last_name, :password, :password_confirmation
 
-  before_save { create_remember_token(:remember_token) }
+  before_create { create_remember_token(:remember_token) }
 
   validates :password, confirmation: true,
             length: { within: 6..40 }

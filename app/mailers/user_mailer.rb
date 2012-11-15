@@ -9,7 +9,7 @@ class UserMailer < ActionMailer::Base
   # email to user notifying them that they have been activated
   def confirm_active(user)
     @user = user
-    @url = "http://carriers.herokuapp.com/users/signin"
+    @url = "http://carriers.herokuapp.com/signin"
 
     mail to: user.email, subject: "Welcome to the Carrier Site"
   end
