@@ -1,0 +1,12 @@
+<% provide(:title, "Edit Parent Company") %> 
+<h3><%= "Edit #{@parent_company.name}"%></h3>
+
+<div class="row-fluid">
+  <div class="span6">
+    <%= render 'form' %>
+	</div>
+</div>
+
+<hr/>
+<%= link_to 'Show', @parent_company %> |
+<%= link_to 'Back', parent_companies_path %>

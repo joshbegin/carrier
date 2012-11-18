@@ -1,0 +1,2 @@
+module ParentCompaniesHelper
+end

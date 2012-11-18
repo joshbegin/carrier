@@ -1,4 +1,6 @@
 Carrier::Application.routes.draw do
+  resources :parent_companies
+
   get "password_resets/new"
 
   get "pages/home"

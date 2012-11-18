@@ -1,0 +1,17 @@
+<% provide(:title, "Parent Company Details") %> 
+<p id="notice"><%= notice %></p>
+<h3><%= "#{@parent_company.name}"%></h3>
+
+<p>
+  <b>Name:</b>
+  <%= @parent_company.name %>
+</p>
+
+<p>
+  <b>Alias:</b>
+  <%= @parent_company.alias %>
+</p>
+
+
+<%= link_to 'Edit |', edit_parent_company_path(@parent_company) if current_user.admin? %>
+<%= link_to 'Back', parent_companies_path %>
