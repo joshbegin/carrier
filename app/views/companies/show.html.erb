@@ -1,0 +1,75 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Parent company:</b>
+  <%= @company.parent_company %>
+</p>
+
+<p>
+  <b>Company type:</b>
+  <%= @company.company_type %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @company.state %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @company.name %>
+</p>
+
+<p>
+  <b>Alias:</b>
+  <%= @company.alias %>
+</p>
+
+<p>
+  <b>Address line 1:</b>
+  <%= @company.address_line_1 %>
+</p>
+
+<p>
+  <b>Address line 2:</b>
+  <%= @company.address_line_2 %>
+</p>
+
+<p>
+  <b>Address line 3:</b>
+  <%= @company.address_line_3 %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @company.city %>
+</p>
+
+<p>
+  <b>Zip:</b>
+  <%= @company.zip %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%= @company.url %>
+</p>
+
+<p>
+  <b>Naic code:</b>
+  <%= @company.naic_code %>
+</p>
+
+<p>
+  <b>Ai carrier code:</b>
+  <%= @company.ai_carrier_code %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @company.notes %>
+</p>
+
+
+<%= link_to 'Edit', edit_company_path(@company) %> |
+<%= link_to 'Back', companies_path %>

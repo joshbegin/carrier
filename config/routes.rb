@@ -1,4 +1,6 @@
 Carrier::Application.routes.draw do
+  resources :companies
+
   resources :parent_companies
 
   get "password_resets/new"
@@ -18,6 +20,8 @@ Carrier::Application.routes.draw do
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
   match '/confirmation', to: 'pages#confirmation'
+  match '/carriers', to: 'companies#carriers'
+  match '/exams', to: 'companies#exams'
 
   root to: 'pages#home'
 

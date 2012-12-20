@@ -1,0 +1,73 @@
+<%= form_for(@company) do |f| %>
+  <% if @company.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@company.errors.count, "error") %> prohibited this company from being saved:</h2>
+
+      <ul>
+      <% @company.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :parent_company_id %><br />
+    <%= collection_select(:company, :parent_company_id, ParentCompany.all, :id, :name, :prompt => "Select Parent Company") %>
+  </div>
+  <div class="field">
+    <%= f.label :company_type_id %><br />
+    <%= collection_select(:company, :company_type_id, CompanyType.all, :id, :name, :prompt => "Select Company Type") %>
+  </div>
+  <div class="field">
+    <%= f.label :state_id %><br />
+    <%= collection_select(:company, :state_id, State.all, :id, :name, :prompt => "Select State") %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :alias %><br />
+    <%= f.text_field :alias %>
+  </div>
+  <div class="field">
+    <%= f.label :address_line_1 %><br />
+    <%= f.text_field :address_line_1 %>
+  </div>
+  <div class="field">
+    <%= f.label :address_line_2 %><br />
+    <%= f.text_field :address_line_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :address_line_3 %><br />
+    <%= f.text_field :address_line_3 %>
+  </div>
+  <div class="field">
+    <%= f.label :city %><br />
+    <%= f.text_field :city %>
+  </div>
+  <div class="field">
+    <%= f.label :zip %><br />
+    <%= f.text_field :zip %>
+  </div>
+  <div class="field">
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :naic_code %><br />
+    <%= f.text_field :naic_code %>
+  </div>
+  <div class="field">
+    <%= f.label :ai_carrier_code %><br />
+    <%= f.text_field :ai_carrier_code %>
+  </div>
+  <div class="field">
+    <%= f.label :notes %><br />
+    <%= f.text_area :notes %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

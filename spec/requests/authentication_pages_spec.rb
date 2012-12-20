@@ -87,6 +87,16 @@ describe "Authentication" do
         page.should_not have_link('Deactivate', href: toggle_active_user_path(@user))
         page.should_not have_link('Remove Admin', href: toggle_admin_user_path(@user))
       end
+      
+      it "should have the correct navigation links" do
+        page.should have_link('Users', href: users_path)
+        page.should have_link('Parent Companies', href: parent_companies_path)
+        page.should have_link('Carriers', href: carriers_path)   
+        page.should have_link('Exam Companies', href: exams_path)
+        page.should have_link('Profile', href: user_path(@user))
+        page.should have_link('Settings', href: edit_user_path(@user))
+        page.should have_link('Sign out', href: signout_path)
+      end
     end
 
     describe "as non-admin user" do
@@ -107,6 +117,15 @@ describe "Authentication" do
         visit user_path(@user)
         page.should_not have_link('Deactivate', href: toggle_active_user_path(@user))
         page.should_not have_link('Make Admin', href: toggle_admin_user_path(@user))
+      end
+      
+      it "should have the correct navigation links" do
+        page.should have_link('Parent Companies', href: parent_companies_path)
+        page.should have_link('Carriers', href: carriers_path)   
+        page.should have_link('Exam Companies', href: exams_path)   
+        page.should have_link('Profile', href: user_path(@user))
+        page.should have_link('Settings', href: edit_user_path(@user))
+        page.should have_link('Sign out', href: signout_path)
       end
     end
   end
