@@ -16,6 +16,7 @@ class ParentCompaniesController < ApplicationController
   # GET /parent_companies/1.json
   def show
     @parent_company = ParentCompany.find(params[:id])
+    @companies = Company.where(:parent_company_id => @parent_company.id)
 
     respond_to do |format|
       format.html # show.html.erb

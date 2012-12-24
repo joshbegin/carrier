@@ -1,4 +1,6 @@
 class CompaniesController < ApplicationController
+  before_filter :signed_in_user
+  before_filter :admin_user, only: [:new, :edit, :create, :update, :destroy]
   # GET /companies
   # GET /companies.json
   def index

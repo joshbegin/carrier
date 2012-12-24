@@ -1,4 +1,4 @@
-<%= form_for(@company) do |f| %>
+<%= form_for(@company, :html => { :class => "form-horizontal"} ) do |f| %>
   <% if @company.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@company.errors.count, "error") %> prohibited this company from being saved:</h2>
@@ -11,63 +11,95 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :parent_company_id %><br />
-    <%= collection_select(:company, :parent_company_id, ParentCompany.all, :id, :name, :prompt => "Select Parent Company") %>
+  <div class="control-group">
+    <%= f.label :company_type_id, class: "control-label" %>
+		<div class="controls">
+      <%= collection_select(:company, :company_type_id, CompanyType.all, :id, :name, :prompt => "Select Company Type") %>
+		</div>
+	</div>
+  <div class="control-group">
+    <%= f.label :parent_company_id, class: "control-label" %>
+		<div class="controls">
+      <%= collection_select(:company, :parent_company_id, ParentCompany.all, :id, :name, :prompt => "Select Parent Company") %>
+		</div>
+	</div>
+  <div class="control-group">
+    <%= f.label :name, class: "control-label" %>
+		<div class="controls">
+      <%= f.text_field :name, placeholder: "Name" %>
+		</div>
+	</div>
+  <div class="control-group">
+    <%= f.label :alias, class: "control-label" %>
+		<div class="controls">
+	    <%= f.text_field :alias, placeholder: "Alias" %>
+		</div>
   </div>
-  <div class="field">
-    <%= f.label :company_type_id %><br />
-    <%= collection_select(:company, :company_type_id, CompanyType.all, :id, :name, :prompt => "Select Company Type") %>
+	<hr/>
+  <div class="control-group">
+    <%= f.label :address_line_1, class: "control-label" %>
+		<div class="controls">
+      <%= f.text_field :address_line_1, placeholder: "Line 1" %>
+		</div>
+	</div>
+  <div class="control-group">
+    <%= f.label :address_line_2, class: "control-label" %>
+		<div class="controls">
+	    <%= f.text_field :address_line_2, placeholder: "Line 2" %>
+		</div>
   </div>
-  <div class="field">
-    <%= f.label :state_id %><br />
-    <%= collection_select(:company, :state_id, State.all, :id, :name, :prompt => "Select State") %>
+  <div class="control-group">
+    <%= f.label :address_line_3, class: "control-label" %>
+		<div class="controls">
+	    <%= f.text_field :address_line_3, placeholder: "Line 3" %>
+		</div>
   </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="control-group">
+    <%= f.label :city, class: "control-label" %>
+		<div class="controls">
+	    <%= f.text_field :city, placeholder: "City" %>
+		</div>
   </div>
-  <div class="field">
-    <%= f.label :alias %><br />
-    <%= f.text_field :alias %>
+  <div class="control-group">
+    <%= f.label :state_id, class: "control-label" %>
+		<div class="controls">
+	    <%= collection_select(:company, :state_id, State.all, :id, :name, :prompt => "Select State") %>
+		</div>
   </div>
-  <div class="field">
-    <%= f.label :address_line_1 %><br />
-    <%= f.text_field :address_line_1 %>
+  <div class="control-group">
+    <%= f.label :zip, class: "control-label" %>
+		<div class="controls">
+	    <%= f.text_field :zip, placeholder: "Zip" %>
+		</div>
+	</div>
+	<hr/>
+  <div class="control-group">
+    <%= f.label :url, class: "control-label" %>
+		<div class="controls">
+      <%= f.text_field :url, placeholder: "URL" %>
+		</div>
   </div>
-  <div class="field">
-    <%= f.label :address_line_2 %><br />
-    <%= f.text_field :address_line_2 %>
+  <div class="control-group">
+    <%= f.label :naic_code, class: "control-label" %>
+		<div class="controls">
+	    <%= f.text_field :naic_code, placeholder: "NAIC" %>
+		</div>
   </div>
-  <div class="field">
-    <%= f.label :address_line_3 %><br />
-    <%= f.text_field :address_line_3 %>
+  <div class="control-group">
+    <%= f.label :ai_carrier_code, class: "control-label" %>
+		<div class="controls">
+	    <%= f.text_field :ai_carrier_code, placeholder: "AI Code" %>
+		</div>
   </div>
-  <div class="field">
-    <%= f.label :city %><br />
-    <%= f.text_field :city %>
+  <div class="control-group">
+    <%= f.label :notes, class: "control-label" %>
+		<div class="controls">
+	    <%= f.text_area :notes %>
+		</div>
   </div>
-  <div class="field">
-    <%= f.label :zip %><br />
-    <%= f.text_field :zip %>
-  </div>
-  <div class="field">
-    <%= f.label :url %><br />
-    <%= f.text_field :url %>
-  </div>
-  <div class="field">
-    <%= f.label :naic_code %><br />
-    <%= f.text_field :naic_code %>
-  </div>
-  <div class="field">
-    <%= f.label :ai_carrier_code %><br />
-    <%= f.text_field :ai_carrier_code %>
-  </div>
-  <div class="field">
-    <%= f.label :notes %><br />
-    <%= f.text_area :notes %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	<div class="control-group">
+	  <div class="controls">
+      <%= f.submit class: "btn btn-primary" %>
+		</div>
+	</div>
 <% end %>

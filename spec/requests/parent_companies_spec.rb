@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe "ParentCompanies" do
   let(:parent_company) { FactoryGirl.create(:parent_company) }
+  let(:company) { FactoryGirl.create(:company)}
   
   subject { page }
   
@@ -13,6 +14,8 @@ describe "ParentCompanies" do
       fill_in "Email", with: "user2@email.com"
       fill_in "Password", with: "Password"
       click_button("Sign in")
+      company.parent_company_id = parent_company.id
+      company.save
     end
 
     it "should be able to access Parent Companies (index) page" do
@@ -44,6 +47,11 @@ describe "ParentCompanies" do
     end
     
     it { should have_link('Parent Companies', href: parent_companies_path) }
+    
+    it "should display the correct child carriers" do
+      visit parent_company_path(parent_company)
+      page.should have_content("#{company.naic_code}")
+    end
   end
   
   describe "as non-admin user" do

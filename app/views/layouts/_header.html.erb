@@ -7,8 +7,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <%= link_to "Carrier", root_path, class: "brand" %>
-    
+      <% if signed_in? %>
+			  <%= link_to "Carrier", carriers_path, class: "brand" %>
+			<% else %>
+			  <%= link_to "Carrier", root_path, class: "brand" %>
+			<% end %>
+		
+		
       <div class="nav-collapse">
         <ul class="nav">
           <% if signed_in? %>

@@ -6,6 +6,7 @@ class Company < ActiveRecord::Base
   belongs_to :state
   
   validates :name, presence: true, uniqueness: true
+  validates :company_type_id, presence: true
   
   scope :carrier, where(company_type_id: 1)
   scope :exam, where(company_type_id: 2)

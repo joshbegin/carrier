@@ -7,8 +7,8 @@
 	    <th>Parent company</th>
 			<th>Name</th>
 	    <th>Alias</th>
-	    <th>NAIC code</th>
-	    <th></th>
+	    <th>NAIC Code</th>
+			<th>AI Code</th>
 	    <th></th>
 	    <th></th>
 	  </tr>
@@ -17,13 +17,13 @@
 	<tbody>
 		<% @companies.each do |company| %>
 		  <tr>
-		    <td><%= company.parent_company.try(:name) %></td>
-		    <td><%= company.name %></td>
+		    <td><%= link_to "#{company.parent_company.try(:name)}", parent_company_path(company.parent_company) %></td>
+		    <td><%= link_to "#{company.name}", company %></td>
 		    <td><%= company.alias %></td>
 		    <td><%= company.naic_code %></td>
-		    <td><%= link_to 'Show', company %></td>
-		    <td><%= link_to 'Edit', edit_company_path(company) %></td>
-		    <td><%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				<td><%= company.ai_carrier_code %></td>
+		    <td><%= link_to 'Edit', edit_company_path(company), class: "btn btn-small" if current_user.admin? %></td>
+		    <td><%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-small btn-danger' if current_user.admin? %></td>
 		  </tr>
 		<% end %>
 	</tbody>
@@ -31,4 +31,4 @@
 
 <br />
 
-<%= link_to 'New Company', new_company_path %>
+<%= link_to 'Add Company', new_company_path, class: "btn btn-primary" if current_user.admin? %>
