@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe "ParentCompanies" do
   let(:parent_company) { FactoryGirl.create(:parent_company) }
-  let(:company) { FactoryGirl.create(:company)}
+  let(:company) { FactoryGirl.create(:company) }
+  let(:company2) { FactoryGirl.create(:company) }
   
   subject { page }
   
@@ -28,7 +29,7 @@ describe "ParentCompanies" do
     it "should be able to view show pages" do
       visit parent_company_path(parent_company)
       
-      page.should have_selector('h3',     text: "#{parent_company.name}")
+      page.should have_selector('h3',     text: "#{parent_company.name} Details")
       page.should have_selector('title',  text: 'Parent Company Details')
     end
     
@@ -51,6 +52,7 @@ describe "ParentCompanies" do
     it "should display the correct child carriers" do
       visit parent_company_path(parent_company)
       page.should have_content("#{company.naic_code}")
+      page.should_not have_content("#{company2.naic_code}")
     end
   end
   

@@ -38,6 +38,10 @@ group :test do
   gem "rb-fsevent", "~> 0.9.2"
 end
 
+group :development do
+  gem 'meta_request', '0.2.0'
+end
+
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
 

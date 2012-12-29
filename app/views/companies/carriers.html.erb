@@ -17,7 +17,7 @@
 	<tbody>
 		<% @companies.each do |company| %>
 		  <tr>
-		    <td><%= link_to "#{company.parent_company.try(:name)}", parent_company_path(company.parent_company) %></td>
+		    <td><%= link_to "#{company.parent_company.try(:name)}", parent_company_path(company.parent_company) unless company.parent_company.nil? %></td>
 		    <td><%= link_to "#{company.name}", company %></td>
 		    <td><%= company.alias %></td>
 		    <td><%= company.naic_code %></td>
