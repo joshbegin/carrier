@@ -19,7 +19,7 @@ describe "Companies" do
     end
 
     it "Carrier page should be accessible" do
-      visit carriers_path
+      visit companies_path
       page.should have_selector('h3', text: 'Carriers')
       page.should have_selector('title', text: 'Carriers')
       page.should have_link('Add Company', href: new_company_path)
@@ -66,16 +66,16 @@ describe "Companies" do
     end
     
     it "Carrier page should be accessible" do
-      visit carriers_path
+      visit companies_path
       page.should have_selector('h3', text: 'Carriers')
       page.should have_selector('title', text: 'Carriers')
     end
 
-    it "Exam page should be accessible" do
-      visit exams_path
-      page.should have_selector('h3', text: 'Exam Companies')
-      page.should have_selector('title', text: 'Exam Companies')
-    end
+    # it "Exam page should be accessible" do
+    #       visit exams_path
+    #       page.should have_selector('h3', text: 'Exam Companies')
+    #       page.should have_selector('title', text: 'Exam Companies')
+    #     end
     
     it "should be able to view show pages" do
       visit company_path(company)
@@ -105,16 +105,16 @@ describe "Companies" do
     end
       
     it "Carrier page should not be accessible" do
-      visit carriers_path
+      visit companies_path
       page.should have_selector('h3',    text: 'Sign in')
       page.should have_content('Please log in first')
     end
 
-    it "Exams page should not be accessible" do
-      visit exams_path
-      page.should have_selector('h3',    text: 'Sign in')
-      page.should have_content('Please log in first')
-    end
+    # it "Exams page should not be accessible" do
+    #       visit exams_path
+    #       page.should have_selector('h3',    text: 'Sign in')
+    #       page.should have_content('Please log in first')
+    #     end
     
     it "should not be able to view show pages" do
       visit company_path(company)
@@ -128,8 +128,8 @@ describe "Companies" do
       page.should have_content('Please log in first')
     end
     
-    it { should_not have_link('Carriers', href: carriers_path) }
-    it { should_not have_link('Exam Companies', href: exams_path) }
+    it { should_not have_link('Carriers', href: companies_path) }
+    # it { should_not have_link('Exam Companies', href: exams_path) }
   end 
     # it "Carrier page should have the correct columns" do
     #       visit carriers_path

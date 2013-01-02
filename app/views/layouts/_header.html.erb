@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
       </a>
       <% if signed_in? %>
-			  <%= link_to "Carrier", carriers_path, class: "brand" %>
+				<%= link_to "Carrier", companies_path, class: "brand" %>
 			<% else %>
 			  <%= link_to "Carrier", root_path, class: "brand" %>
 			<% end %>
@@ -29,10 +29,7 @@
 								  <%= link_to "Parent Companies", parent_companies_path %>
 								</li>
                 <li<%= ' class=active' if active == "Carriers" %>>
-								  <%= link_to "Carriers", carriers_path %>
-								</li>
-                <li<%= ' class=active' if active == "Exam Companies" %>>
-								  <%= link_to "Exam Companies", exams_path %>
+								  <%= link_to "Carriers", companies_path %>
 								</li>
 							</ul>
 						</li>

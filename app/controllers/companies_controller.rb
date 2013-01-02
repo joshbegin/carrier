@@ -4,7 +4,9 @@ class CompaniesController < ApplicationController
   # GET /companies
   # GET /companies.json
   def index
-    @companies = Company.all
+    # @companies = Company.all
+    @q = Company.search(params[:q])
+    @companies = @q.result(:distinct => true)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -12,17 +14,10 @@ class CompaniesController < ApplicationController
     end
   end
   
-  def carriers
-    @companies = Company.carrier
-    
-    respond_to do |format|
-      format.html
-      format.json { render json: @companies }
-    end
-  end
-  
   def exams
-    @companies = Company.exam
+    # @companies = Company.exam
+    @q = Company.exam.search(params[:q])
+    @companies = @q.result(:distinct => true)
 
     respond_to do |format|
       format.html

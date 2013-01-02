@@ -77,8 +77,8 @@ describe "Authentication" do
       
       it { should have_link('Users', href: users_path) }
       it { should have_link('Parent Companies', href: parent_companies_path) }
-      it { should have_link('Carriers', href: carriers_path) }
-      it { should have_link('Exam Companies', href: exams_path) }
+      it { should have_link('Carriers', href: companies_path) }
+      # it { should have_link('Exam Companies', href: exams_path) }
       it { should have_link('Profile', href: user_path(@user)) }
       it { should have_link('Settings', href: edit_user_path(@user)) }
       it { should have_link('Sign out', href: signout_path) }
@@ -105,8 +105,8 @@ describe "Authentication" do
       end
       
       it { should have_link('Parent Companies', href: parent_companies_path) }
-      it { should have_link('Carriers', href: carriers_path) }
-      it { should have_link('Exam Companies', href: exams_path) }
+      it { should have_link('Carriers', href: companies_path) }
+      # it { should have_link('Exam Companies', href: exams_path) }
       it { should have_link('Profile', href: user_path(@user)) }
       it { should have_link('Settings', href: edit_user_path(@user)) }
       it { should have_link('Sign out', href: signout_path) }

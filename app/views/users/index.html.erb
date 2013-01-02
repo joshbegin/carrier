@@ -31,9 +31,9 @@
             id: "admin_link_#{user.id}" %>)
 					<% end %>
 				</td>
-        <td><%= link_to 'Edit', edit_user_path(user), class: "btn btn-small" if current_user?(user) %></td>
+        <td><%= link_to raw('<i class="icon-edit"></i> Edit'), edit_user_path(user), class: "btn btn-small" if current_user?(user) %></td>
         <td><% if !current_user?(user) %>
-  				<%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-small btn-danger" %>
+  				<%= link_to raw('<i class="icon-trash icon-white"></i> Delete'), user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-small btn-danger" %>
 				<% end %></td>
       </tr>
     <% end %>
@@ -42,4 +42,4 @@
 
 <br />
 
-<%= link_to 'New User', new_user_path %>
+<%= link_to raw('<i class="icon-plus icon-white"></i> New User'), new_user_path, class: "btn btn-primary" %>
