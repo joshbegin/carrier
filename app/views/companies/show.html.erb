@@ -28,7 +28,7 @@
 		
 		<p>
 		  <b>Parent company:</b>
-		  <%= @company.parent_company.try(:name) %>
+		  <%= link_to "#{@company.parent_company.name}", parent_company_path(@company.parent_company) unless @company.parent_company.nil? %>
 		</p>
 
 		<p>
