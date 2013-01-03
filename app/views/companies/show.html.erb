@@ -22,27 +22,27 @@
 		</p>
 		
 		<p>
-		  <b>Alias:</b>
+		  <strong>Alias:</strong>
 		  <%= @company.alias %>
 		</p>
 		
 		<p>
-		  <b>Parent company:</b>
+		  <strong>Parent company:</strong>
 		  <%= link_to "#{@company.parent_company.name}", parent_company_path(@company.parent_company) unless @company.parent_company.nil? %>
 		</p>
 
 		<p>
-		  <b>Company type:</b>
+		  <strong>Company type:</strong>
 		  <%= @company.company_type.try(:name) %>
 		</p>
 		
 		<p>
-		  <b>AI Carrier Code:</b>
+		  <strong>AI Carrier Code:</strong>
 		  <%= @company.ai_carrier_code %>
 		</p>
 		
 		<p>
-		  <b>NAIC code:</b>
+		  <strong>NAIC code:</strong>
 		  <%= @company.naic_code %>
 		</p>
 
