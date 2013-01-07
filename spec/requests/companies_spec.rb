@@ -3,6 +3,7 @@ require 'spec_helper'
 describe "Companies" do
   let(:company) { FactoryGirl.create(:company) }
   let(:parent) { FactoryGirl.create(:parent_company) }
+  let(:company2) { FactoryGirl.create(:company) }
   
   subject { page }
   
@@ -51,6 +52,17 @@ describe "Companies" do
       
       page.should have_selector('h3',     text: 'New Company')
       page.should have_selector('title',  text: 'New Company')
+    end
+    
+    it "should return the correct results when searching" do
+      visit companies_path
+      fill_in "q_name_cont", with: "#{company.name}"
+      click_button("Search")
+      
+      page.should have_content("#{company.name}")
+      page.should have_content("#{company.ai_carrier_code}")
+      page.should_not have_content("#{company2.name}")
+      page.should_not have_content("#{company2.ai_carrier_code}")
     end
   end
   

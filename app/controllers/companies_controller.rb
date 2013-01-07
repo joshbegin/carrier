@@ -5,7 +5,7 @@ class CompaniesController < ApplicationController
   # GET /companies.json
   def index
     # @companies = Company.all
-    @q = Company.search(params[:q])
+    @q = Company.carrier.search(params[:q])
     @companies = @q.result(:distinct => true)
 
     respond_to do |format|
