@@ -60,7 +60,7 @@ describe "Authentication" do
         fill_in "Password",                         with: "Password"
       end
 
-      it "should not be possible" do
+      it "does not work" do
         click_button("Sign in")
         current_path.should eq(sessions_path)
       end
@@ -83,7 +83,7 @@ describe "Authentication" do
       it { should have_link('Settings', href: edit_user_path(@user)) }
       it { should have_link('Sign out', href: signout_path) }
       
-      it "should be able to access Users page" do
+      it "can access Users page" do
         visit users_path
         page.should have_selector('h3', text: 'Users')
       end
@@ -111,7 +111,7 @@ describe "Authentication" do
       it { should have_link('Settings', href: edit_user_path(@user)) }
       it { should have_link('Sign out', href: signout_path) }
       
-      it "should not be able to access Users page" do
+      it "can not access Users page" do
         visit users_path
         page.should have_selector('h1', text: 'Welcome!')
       end

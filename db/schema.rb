@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121120034701) do
+ActiveRecord::Schema.define(:version => 20130110214116) do
 
   create_table "companies", :force => true do |t|
     t.integer  "parent_company_id"
@@ -39,6 +39,44 @@ ActiveRecord::Schema.define(:version => 20121120034701) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "feed_frequencies", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "feed_statuses", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "feed_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "feeds", :force => true do |t|
+    t.string   "name"
+    t.text     "notes"
+    t.string   "stage_feed_url"
+    t.string   "production_feed_url"
+    t.datetime "production_start_date"
+    t.datetime "production_end_date"
+    t.integer  "company_id"
+    t.integer  "feed_status_id"
+    t.integer  "feed_frequency_id"
+    t.integer  "feed_type_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  add_index "feeds", ["company_id"], :name => "index_feeds_on_company_id"
+  add_index "feeds", ["feed_frequency_id"], :name => "index_feeds_on_feed_frequency_id"
+  add_index "feeds", ["feed_status_id"], :name => "index_feeds_on_feed_status_id"
+  add_index "feeds", ["feed_type_id"], :name => "index_feeds_on_feed_type_id"
 
   create_table "parent_companies", :force => true do |t|
     t.string   "name"

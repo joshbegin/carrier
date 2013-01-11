@@ -1,6 +1,8 @@
+require 'faker'
+
 FactoryGirl.define do
   factory :parent_company do |f|
-    f.sequence(:name) { |n| "Carrier_#{n}" }
-    f.sequence(:alias) { |n| "Alias_#{n}" }
+    f.name { Faker::Company.name }
+    f.alias { Faker::Company.catch_phrase }
   end
 end

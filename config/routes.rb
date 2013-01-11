@@ -1,4 +1,6 @@
 Carrier::Application.routes.draw do
+  resources :feeds
+
   resources :companies
 
   resources :parent_companies

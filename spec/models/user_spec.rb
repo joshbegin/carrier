@@ -5,6 +5,10 @@ describe User do
     @user = FactoryGirl.create(:active)
   end
 
+  it "has a valid factory" do
+    FactoryGirl.create(:user).should be_valid
+  end
+  
   subject { @user }
  
   it { should respond_to(:first_name) }
@@ -20,9 +24,8 @@ describe User do
 
   it { should be_valid }
 
-  it "should require an email address" do
-    @user.email = " "
-    @user.should_not be_valid
+  it "is invalid without an email" do
+    FactoryGirl.build(:user, email: nil).should_not be_valid
   end
 
   it "should require a unique email" do
@@ -33,14 +36,12 @@ describe User do
     user_with_same_email.should_not be_valid
   end
 
-  it "should require a first name" do
-    @user.first_name = " "
-    @user.should_not be_valid
+  it "is invalid without a first_name" do
+    FactoryGirl.build(:user, first_name: nil).should_not be_valid
   end
 
-  it "should require a last name" do
-    @user.last_name = " "
-    @user.should_not be_valid
+  it "is invalid without a name" do
+    FactoryGirl.build(:user, last_name: nil).should_not be_valid
   end
 
   it "should return the correct full name" do
@@ -52,11 +53,10 @@ describe User do
     
     describe "password validations" do
 
-      it "should require a password" do
-        @user.password = ""
-        @user.password_confirmation = ""
-        @user.should_not be_valid
+      it "is invalid without a password" do
+        FactoryGirl.build(:user, password: nil).should_not be_valid
       end
+      
 
       it "should require a matching password confirmation" do
         @user.password_confirmation = "invalid"

@@ -71,13 +71,65 @@ states = {
     }
     
 states.each do |name, abbreviation|
-  unless State.where(:name => name).first
-    State.create({:name => name, :abbreviation => abbreviation})
+  unless State.where(name: name).first
+    State.create({name: name, abbreviation: abbreviation})
   end
 end
 
 puts "#{State.count} States"
 
+frequencies = [
+  "Real-time",
+  "Every 15 minutes",
+  "Every 30 minutes",
+  "Hourly",
+  "Hourly during business hours",
+  "8 times per day",
+  "7 times per day",
+  "6 times per day",
+  "5 times per day",
+  "4 times per day",
+  "3 times per day",
+  "Twice a day",
+  "Daily",
+  "Twice a week",
+  "Weekly",
+  "Bi-weekly",
+  "Monthly"]
+
+frequencies.each do |frequency|
+  FeedFrequency.create(name: frequency)
+end  
+
+puts "#{FeedFrequency.count} types of feed frequencies"
+  
+statuses = [
+  "In the pipeline",
+  "Test",
+  "Production"
+]
+
+statuses.each do |status|
+  FeedStatus.create(name: status)
+end  
+
+puts "#{FeedStatus.count} types of feed statuses"
+
+types = [
+  "Pending",
+  "Inforce",
+  "Commission",
+  "License & Appointment",
+  "Two-Way Messaging",
+  "App Upload"
+]
+
+types.each do |type|
+  FeedType.create(name: type)
+end  
+
+puts "#{FeedType.count} types of feed types"
+  
 CompanyType.create(name: "Carrier")
 CompanyType.create(name: "Exam")
 

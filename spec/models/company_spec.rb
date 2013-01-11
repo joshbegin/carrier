@@ -5,6 +5,10 @@ describe Company do
     @company = FactoryGirl.create(:company)
   end
   
+  it "has a valid factory" do
+    FactoryGirl.create(:company).should be_valid
+  end
+  
   subject { @company }
  
   it { should respond_to(:name) }
@@ -24,9 +28,8 @@ describe Company do
 
   it { should be_valid }
   
-  it "should require a name" do
-    @company.name = ""
-    @company.should_not be_valid
+  it "is invalid without a name" do
+    FactoryGirl.build(:company, name: nil).should_not be_valid
   end
   
   it "should require a unique name" do

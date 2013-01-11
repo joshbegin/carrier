@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @feed.name %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @feed.notes %>
+</p>
+
+<p>
+  <b>Stage feed url:</b>
+  <%= @feed.stage_feed_url %>
+</p>
+
+<p>
+  <b>Production feed url:</b>
+  <%= @feed.production_feed_url %>
+</p>
+
+<p>
+  <b>Production start date:</b>
+  <%= @feed.production_start_date %>
+</p>
+
+<p>
+  <b>Production end date:</b>
+  <%= @feed.production_end_date %>
+</p>
+
+<p>
+  <b>Company:</b>
+  <%= @feed.company %>
+</p>
+
+<p>
+  <b>Feed status:</b>
+  <%= @feed.feed_status %>
+</p>
+
+<p>
+  <b>Feed frequency:</b>
+  <%= @feed.feed_frequency %>
+</p>
+
+<p>
+  <b>Feed type:</b>
+  <%= @feed.feed_type %>
+</p>
+
+
+<%= link_to 'Edit', edit_feed_path(@feed) %> |
+<%= link_to 'Back', feeds_path %>
