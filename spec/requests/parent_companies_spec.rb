@@ -54,6 +54,7 @@ describe "ParentCompanies" do
       page.should have_content("#{company.naic_code}")
       page.should_not have_content("#{company2.naic_code}")
     end
+    
   end
   
   describe "as non-admin user" do

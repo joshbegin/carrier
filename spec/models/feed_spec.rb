@@ -10,8 +10,16 @@ describe Feed do
     FactoryGirl.create(:feed).should be_valid
   end
   
-  it "is invalid without a name" do
-    FactoryGirl.build(:feed, name: nil).should_not be_valid
+  it "is invalid without a type" do
+    FactoryGirl.build(:feed, feed_type_id: nil).should_not be_valid
+  end
+  
+  it "is invalid without a status" do
+    FactoryGirl.build(:feed, feed_status_id: nil).should_not be_valid
+  end
+  
+  it "is invalid without a company" do
+    FactoryGirl.build(:feed, company_id: nil).should_not be_valid
   end
   
   it "has the correct frequency" do

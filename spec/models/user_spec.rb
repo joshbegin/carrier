@@ -7,6 +7,8 @@ describe User do
 
   it "has a valid factory" do
     FactoryGirl.create(:user).should be_valid
+    FactoryGirl.create(:active).should be_valid
+    FactoryGirl.create(:admin).should be_valid
   end
   
   subject { @user }

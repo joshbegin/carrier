@@ -1,55 +1,22 @@
-<p id="notice"><%= notice %></p>
+<% provide(:title, "Feed Details") %>
+<div class="row">
+	<div class="span7">
+		<ul class="breadcrumb">
+			<% unless @feed.company.parent_company.nil? %>
+			  <li><%= link_to @feed.company.parent_company.name, parent_company_url(@feed.company.parent_company) %> <span class="divider">/</span></li>
+			<% end %>
+		  <li><%= link_to @feed.company.name, company_url(@feed.company) %>
+				<span class="divider">/</span></li>
+		  <li class="active"><%= @feed.feed_type.name %></li>
+		</ul>
+	</div>
+</div>
 
-<p>
-  <b>Name:</b>
-  <%= @feed.name %>
-</p>
+<div class="row">
+	<div class="span6">
+		<h3><%= "#{@feed.company.try(:name)} - #{@feed.feed_type.name} Details" %></h3>
+	</div>
+</div>
 
-<p>
-  <b>Notes:</b>
-  <%= @feed.notes %>
-</p>
+<%= render 'shared/feed'%>
 
-<p>
-  <b>Stage feed url:</b>
-  <%= @feed.stage_feed_url %>
-</p>
-
-<p>
-  <b>Production feed url:</b>
-  <%= @feed.production_feed_url %>
-</p>
-
-<p>
-  <b>Production start date:</b>
-  <%= @feed.production_start_date %>
-</p>
-
-<p>
-  <b>Production end date:</b>
-  <%= @feed.production_end_date %>
-</p>
-
-<p>
-  <b>Company:</b>
-  <%= @feed.company %>
-</p>
-
-<p>
-  <b>Feed status:</b>
-  <%= @feed.feed_status %>
-</p>
-
-<p>
-  <b>Feed frequency:</b>
-  <%= @feed.feed_frequency %>
-</p>
-
-<p>
-  <b>Feed type:</b>
-  <%= @feed.feed_type %>
-</p>
-
-
-<%= link_to 'Edit', edit_feed_path(@feed) %> |
-<%= link_to 'Back', feeds_path %>

@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def full_title(page_title)
-    base_title = "Carrier Site"
+    base_title = "DataCarrier"
     if page_title.empty?
       base_title
     else

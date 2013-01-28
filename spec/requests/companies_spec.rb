@@ -4,6 +4,8 @@ describe "Companies" do
   let(:company) { FactoryGirl.create(:company) }
   let(:parent) { FactoryGirl.create(:parent_company) }
   let(:company2) { FactoryGirl.create(:company) }
+  let(:feed) { FactoryGirl.create(:feed, company: company) }
+  let(:feed2) { FactoryGirl.create(:feed, company: company2) }
   
   subject { page }
   
@@ -15,14 +17,10 @@ describe "Companies" do
       fill_in "Email", with: "user2@email.com"
       fill_in "Password", with: "Password"
       click_button("Sign in")
-      # company.parent_company_id = parent.id
-      #       company.save
     end
 
-    it "Carrier page should be accessible" do
+    it "Companies Page has an Add Company link" do
       visit companies_path
-      page.should have_selector('h3', text: 'Carriers')
-      page.should have_selector('title', text: 'Carriers')
       page.should have_link('Add Company', href: new_company_path)
     end
 
@@ -31,13 +29,6 @@ describe "Companies" do
       page.should have_selector('h3', text: 'Exam Companies')
       page.should have_selector('title', text: 'Exam Companies')
       page.should have_link('Add Company', href: new_company_path)
-    end
-      
-    it "should be able to view show pages" do
-      visit company_path(company)
-      
-      page.should have_selector('h3',     text: "#{company.name} Details")
-      page.should have_selector('title',  text: 'Carrier')
     end
     
     it "should be able to edit Companies" do
@@ -63,6 +54,18 @@ describe "Companies" do
       page.should have_content("#{company.ai_carrier_code}")
       page.should_not have_content("#{company2.name}")
       page.should_not have_content("#{company2.ai_carrier_code}")
+    end
+    
+    it "should display the correct feeds" do
+      visit company_path(company)
+      page.should have_content("#{feed.company.name}")
+      page.should_not have_content("#{feed2.company.name}")
+    end
+    
+    it "should say No Feeds if there are no feeds" do
+      company3 = FactoryGirl.create(:company)
+      visit company_path(company3)
+      page.should have_content('No Feeds')
     end
   end
   

@@ -1,0 +1,36 @@
+<% if @feeds.count == 0 %>
+	<div class="span3">No Feeds</div>
+	<br/>
+<% else %>
+	<table class="table table-striped table-hover table-condensed" id="Feeds">
+		<thead>
+		  <tr>
+				<th>Company</th>
+		    <th>Type</th>
+		    <th>Name</th>	    
+		    <th>Status</th>
+		    <th>Frequency</th>
+		    <th></th>
+		    <th></th>
+		  </tr>
+		</thead>
+
+		<tbody>
+			<% @feeds.each do |feed| %>
+			  <tr>
+			    <td><%= link_to "#{feed.company.try(:name)}", company_path(feed.company) %></td>
+			    <td><%= link_to "#{feed.feed_type.name}", feed_path(feed) %></td>
+			    <td><%= link_to "#{feed.name}", feed_path(feed) %></td>
+			    <td><%= feed.feed_status.name %></td>
+			    <td><%= feed.feed_frequency.name %></td>
+			    <td><%= link_to raw('<i class="icon-edit"></i> Edit'), edit_feed_path(feed), class: "btn" if current_user.admin? %></td>
+			    <td><%= link_to raw('<i class="icon-trash icon-white"></i> Delete'), feed, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" if current_user.admin? %></td>
+			  </tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
+
+<br />
+
+<%= link_to raw('<i class="icon-plus icon-white"></i> Add Feed'), new_feed_path, class: "btn btn-primary" if current_user.admin? %>

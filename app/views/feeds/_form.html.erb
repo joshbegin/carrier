@@ -1,4 +1,4 @@
-<%= form_for(@feed) do |f| %>
+<%= form_for(@feed, :html => { :class => "form-horizontal"} ) do |f| %>
   <% if @feed.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@feed.errors.count, "error") %> prohibited this feed from being saved:</h2>
@@ -11,47 +11,69 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="control-group">
+    <%= f.label :company, class: "control-label" %>
+		<div class="controls">
+      <%= collection_select(:feed, :company_id, Company.all, :id, :name, :prompt => "Select Company") %>
+		</div>
   </div>
-  <div class="field">
-    <%= f.label :notes %><br />
-    <%= f.text_area :notes %>
+  <div class="control-group">
+    <%= f.label :feed_type, "Type", class: "control-label" %>
+		<div class="controls">
+	    <%= collection_select(:feed, :feed_type_id, FeedType.all, :id, :name, :prompt => "Select Type") %>
+		</div>
   </div>
-  <div class="field">
-    <%= f.label :stage_feed_url %><br />
-    <%= f.text_field :stage_feed_url %>
+  <div class="control-group">
+    <%= f.label :feed_status, "Status", class: "control-label" %>
+		<div class="controls">
+	    <%= collection_select(:feed, :feed_status_id, FeedStatus.all, :id, :name, :prompt => "Select Status") %>
+		</div>
   </div>
-  <div class="field">
-    <%= f.label :production_feed_url %><br />
-    <%= f.text_field :production_feed_url %>
+  <div class="control-group">
+    <%= f.label :feed_frequency, "Frequency", class: "control-label" %>
+		<div class="controls">
+	    <%= collection_select(:feed, :feed_frequency_id, FeedFrequency.all, :id, :name, :prompt => "Select Frequency") %>
+		</div>
   </div>
-  <div class="field">
-    <%= f.label :production_start_date %><br />
-    <%= f.datetime_select :production_start_date %>
+  <div class="control-group">
+    <%= f.label :name, class: "control-label" %>
+		<div class="controls">
+      <%= f.text_field :name, placeholder: "Name" %>
+		</div>
   </div>
-  <div class="field">
-    <%= f.label :production_end_date %><br />
-    <%= f.datetime_select :production_end_date %>
+  <div class="control-group">
+    <%= f.label :stage_feed_url, "Stage Feed URL", class: "control-label" %>
+		<div class="controls">
+	    <%= f.text_field :stage_feed_url, placeholder: "Stage Feed URL" %>
+		</div>
   </div>
-  <div class="field">
-    <%= f.label :company %><br />
-    <%= f.text_field :company %>
+  <div class="control-group">
+    <%= f.label :production_feed_url, "Production Feed URL", class: "control-label" %>
+		<div class="controls">
+	    <%= f.text_field :production_feed_url, placeholder: "Production Feed URL" %>
+		</div>
   </div>
-  <div class="field">
-    <%= f.label :feed_status %><br />
-    <%= f.text_field :feed_status %>
+  <div class="control-group">
+    <%= f.label :production_start_date, "Production Start Date", class: "control-label" %>
+		<div class="controls">
+	    <%= f.date_select :production_start_date, :order => [ :month, :day, :year], :prompt => { :day => 'Select day', :month => 'Select month', :year => 'Select year' } %>
+		</div>
   </div>
-  <div class="field">
-    <%= f.label :feed_frequency %><br />
-    <%= f.text_field :feed_frequency %>
+  <div class="control-group">
+    <%= f.label :production_end_date, "Production End Date", class: "control-label" %>
+		<div class="controls">
+	    <%= f.date_select :production_end_date, :order => [ :month, :day, :year], :prompt => { :day => 'Select day', :month => 'Select month', :year => 'Select year' } %>
+		</div>
   </div>
-  <div class="field">
-    <%= f.label :feed_type %><br />
-    <%= f.text_field :feed_type %>
+  <div class="control-group">
+    <%= f.label :notes, class: "control-label" %>
+		<div class="controls">
+	    <%= f.text_area :notes %>
+		</div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+	<div class="control-group">
+	  <div class="controls">
+	    <%= f.submit class: "btn btn-success" %>
+		</div>
   </div>
 <% end %>

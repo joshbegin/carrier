@@ -29,6 +29,7 @@ class CompaniesController < ApplicationController
   # GET /companies/1.json
   def show
     @company = Company.find(params[:id])
+    @feeds = Feed.where(:company_id => @company.id)
 
     respond_to do |format|
       format.html # show.html.erb

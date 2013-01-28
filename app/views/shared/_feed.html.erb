@@ -1,0 +1,64 @@
+<div class="row">
+	<div class="span5 well">
+		<p>
+		  <b>Company:</b>
+		  <%= link_to @feed.company.name, company_path(@feed.company) %>
+		</p>
+		
+		<p>
+		  <b>Feed type:</b>
+		  <%= @feed.feed_type.name %>
+		</p>
+		
+		<p>
+		  <b>Feed status:</b>
+		  <%= @feed.feed_status.name %>
+		</p>
+
+		<p>
+		  <b>Feed frequency:</b>
+		  <%= @feed.feed_frequency.name %>
+		</p>	
+		
+		<p>
+		  <b>Details:</b>
+		  <%= @feed.name %>
+		</p>
+	</div>
+
+	<div class="span5 well">
+		<p>
+		  <b>Stage feed url:</b>
+		  <%= @feed.stage_feed_url %>
+		</p>
+
+		<p>
+		  <b>Production feed url:</b>
+		  <%= @feed.production_feed_url %>
+		</p>
+
+		<p>
+		  <b>Production start date:</b>
+		  <%= @feed.production_start_date.strftime("%D") unless @feed.production_start_date.nil? %>
+		</p>
+
+		<p>
+		  <b>Production end date:</b>
+		  <%= @feed.production_end_date.strftime("%D") unless @feed.production_end_date.nil? %>
+		</p>
+	</div>
+	
+	<div class="span7 well">
+		<p>
+		  <b>Notes:</b>
+		  <%= @feed.notes %>
+		</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="span4">
+		<%= link_to raw('<i class="icon-edit icon-white"></i> Edit'), edit_feed_path(@feed), class: "btn btn-primary" if current_user.admin? %>
+		<br/><br/>
+	</div>
+</div>
